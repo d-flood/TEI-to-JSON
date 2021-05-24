@@ -1,5 +1,4 @@
 import json
-import re
 from typing import List
 
 def regularize_word(word: str):
@@ -56,8 +55,12 @@ def dictify_transcription(siglum: str, ref: str, plain_tx: str, witnesses: List[
         'witnesses': witnesses
     }
 
-def save_tx(transcription: dict, filename: str):
-    with open(f'{filename}.json', 'w', encoding='utf-8') as file:
+def save_tx(transcription: dict, filename: str, output_dir: str):
+    if output_dir:
+        f = f'{output_dir}/{filename}.json'
+    else:
+        f = f'{filename}.json'
+    with open(f, 'w', encoding='utf-8') as file:
         json.dump(transcription, file, ensure_ascii=False, indent=4)
 
 def verse_to_dict(siglum: str, ref: str, witnesses: List[tuple]) -> dict:
