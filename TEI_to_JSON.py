@@ -8,7 +8,7 @@ from from_tei import (get_file, pre_parse_cleanup,
                       parse, remove_unclear_tags,
                       tei_ns, get_verse_as_tuple)
 
-def tei_to_json(tei: str, output_dir):
+def tei_to_json(tei: str, output_dir, single_verse: str = None):
     text = get_file(tei)
     text = pre_parse_cleanup(text)
     root = parse(text)
@@ -23,6 +23,8 @@ def tei_to_json(tei: str, output_dir):
     verses = root.xpath(f'//tei:ab', namespaces={'tei': tei_ns})
     for verse in verses:
         ref = verse.get('n')
+        if single_verse and single_verse != ref:
+            continue
         witnesses = get_verse_as_tuple(verse, hands=hands)
         # print(witnesses)
         verse_as_dict = verse_to_dict(siglum, ref, witnesses)

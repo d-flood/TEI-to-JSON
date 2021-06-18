@@ -42,7 +42,7 @@ def add_underdot_to_unclear_letters(root: et._Element): #* PASSING
             underdotted.append(f'{letter}\u0323')
         u.text = ''.join(underdotted)
 
-def remove_unclear_tags(text: str):
+def remove_unclear_tags(text: str): #* PASSING
     text = re.sub(r'<unclear[^<>]*>', '', text)
     text = re.sub(r'</unclear[^<>]*>', '', text)
     return text
@@ -130,3 +130,4 @@ def get_verse_as_tuple(verse: et._Element, hands: list = ['firsthand']) -> List[
         return [witnesses[0]]
     else:
         return witnesses
+        
