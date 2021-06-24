@@ -13,6 +13,7 @@ def get_siglum(root: et._Element) -> str:
     for title in titles:
         if title.get('n'):
             siglum = title.get('n')
+            siglum = siglum.replace('-ns', '')
             break
     else:
         siglum = ''
@@ -26,6 +27,8 @@ def get_hands(root: et._Element) -> list:
     for rdg in rdgs:
         if rdg.get('hand') and rdg.get('hand') not in hands:
             hands.append(rdg.get('hand'))
+    if hands == []:
+        hands = ['firsthand']
     return hands
 
 def tei_to_json(tei: str, output_dir, single_verse: str):
@@ -72,8 +75,10 @@ def main():
         output_dir = args.o
     try:
         tei_to_json(TEI, output_dir, '')
-    except:
-        print('The input file cannot be converted.')
+    except FileNotFoundError:
+        print(f'The output directory does not exist:\n\t{output_dir}')
+    except Exception as e:
+        print(f'File could not be converted because of the following error:\n{e}')
 
 if __name__ == '__main__':
     main()
