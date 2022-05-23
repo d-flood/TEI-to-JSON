@@ -1,3 +1,4 @@
+This project has been entirely moved to be incorporated in (Criticus)[https://github.com/d-flood/criticus].
 # TEI to JSON
 
 Convert TEI XML transcriptions to the format required by the ITSEE [Collation Editor](https://github.com/itsee-birmingham/standalone_collation_editor).
